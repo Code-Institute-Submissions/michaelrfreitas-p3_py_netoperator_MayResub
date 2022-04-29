@@ -1,0 +1,8 @@
+hostname
+username
+password
+manager_vlan
+manager_ip
+manager_mask
+primary_vlan
+default_gateway
