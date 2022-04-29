@@ -127,6 +127,6 @@ print("This tools have been created to help Network Engineer with "
       "basic day-by-day\n")
 print("In this application you can create a basic config for some "
       "network devices.\n")
-print("You can create a troubleshooting file with some to do for "
+print("You can create a troubleshooting file with some steps to "
       "fix a issue.\n")
 main()
