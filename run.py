@@ -1,6 +1,7 @@
 """
 This is the main module of run python with basic questions
 """
+import pyfiglet
 
 
 def basic_questions():
@@ -137,6 +138,8 @@ def main():
 
 
 # Print Welcome message
+ascii_banner = pyfiglet.figlet_format("NetOperator")
+print(ascii_banner)
 print("Welcome to NetOperator\n")
 print("This tools have been created to help Network Engineer with "
       "basic day-by-day\n")
