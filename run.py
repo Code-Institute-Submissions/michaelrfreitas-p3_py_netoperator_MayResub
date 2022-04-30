@@ -1,3 +1,8 @@
+"""
+This is the main module of run python with basic questions
+"""
+
+
 def basic_questions():
     """
     Ask the basic questions to the customer to start the application flow.
@@ -84,15 +89,19 @@ def validate_answers(answer):
     the data provided.
     """
     try:
+        # Convert answer to integer
         num = int(answer)
+        # Check if received the specific numbers
         if num != 1 and num != 2:
+            # If is not number 1 and 2 you receive a message error
             raise ValueError(
-                f"Make sure you have writing\n< 1 > or < 2 >\n"
+                f'Make sure you have writing\n< 1 > or < 2 > not {answer}\n'
             )
     except ValueError as error:
+        # Check if it received a integer number if not receive a message
         print(f"{error}is not accepted. Please try again.\n")
         return False
-
+    # Return true if didn't have error
     return True
 
 
@@ -102,16 +111,20 @@ def validate_answers_vendors(answer):
     validate the data provided.
     """
     try:
+        # Convert answer to integer
         num = int(answer)
+        # Check if received the specific numbers
         if num != 1 and num != 2 and num != 3 and num != 4:
+            # If is not number 1 and 2 you receive a message error
             raise ValueError(
-                f"Make sure you have writing\n< 1 > or < 2 > "
-                "or < 3 > or < 4 >\n"
+                f'This answer {answer} is not right\nMake sure you have '
+                'writing\n< 1 > or < 2 > or < 3 > or < 4 >\n'
             )
     except ValueError as error:
+        # Check if it received a integer number if not receive a message
         print(f"{error}is not accepted. Please try again.\n")
         return False
-
+    # Return true if didn't have error
     return True
 
 
@@ -119,9 +132,11 @@ def main():
     """
     Main function to call other functions in the application.
     """
+    # Call basic questions
     basic_questions()
 
 
+# Print Welcome message
 print("Welcome to NetOperator\n")
 print("This tools have been created to help Network Engineer with "
       "basic day-by-day\n")
@@ -129,4 +144,5 @@ print("In this application you can create a basic config for some "
       "network devices.\n")
 print("You can create a troubleshooting file with some steps to "
       "fix a issue.\n")
-main()
+
+main()  # Call main function
