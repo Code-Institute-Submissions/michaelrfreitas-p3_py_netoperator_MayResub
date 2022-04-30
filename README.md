@@ -1,10 +1,21 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+![NetOperator logo](./assets/images/NetOperator_logo.png)
 
-Welcome Michael Freitas,
+# NetOperator
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+This is a tool that can help Network Engineers to create basic configuration to network devices as Switches and Routers. With NetOperator you can create a file with instructions for a basic troubleshooting for devices Layer 2 and Layer 3.
 
-## Reminders
+As you can see this tool is designated to Network Professionals and have specific terms that is not familiar to everyone.
+
+[Click here to access the tool](https://the-hunters.herokuapp.com/)
+
+## User Experience (UX)
+
+### User Flow Chart
+![User Flow Chart](./assets/images/Flow%20-%20NetOperator.png)
+
+### Dev Flow Chart
+![Dev Flow Chart](./assets/images/App_Flow%20-%20NetOperator.png)
+
 
 * Your code must be placed in the `run.py` file
 * Your dependencies must be placed in the `requirements.txt` file
