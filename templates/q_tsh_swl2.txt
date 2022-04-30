@@ -1,8 +1,0 @@
-ping_destination
-status_vlan
-check_mask
-check_ip
-destination_ip
-check_mac_table
-check_arp_table
-mirror_config

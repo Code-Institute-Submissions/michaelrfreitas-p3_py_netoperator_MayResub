@@ -1,1 +1,0 @@
-hostnameusernamepasswordinterface_insideinterface_ip_insideinterface_mask_insideinterface_outsideinterface_ip_outsideinterface_mask_outsideprotocoldefault_ip
