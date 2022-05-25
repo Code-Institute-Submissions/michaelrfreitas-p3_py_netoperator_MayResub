@@ -2,6 +2,8 @@
 This is the main module of run python with basic questions
 """
 import pyfiglet
+import config
+import os
 
 
 def basic_questions():
@@ -16,72 +18,69 @@ def basic_questions():
         netoperator = input(
             "What would you like to do?\nType number:\n"
             "< 1 > Basic Configuration\n< 2 > Basic Troubleshooting\n")
+
         # Validate netoperator if the user provided a right answer if
         # true go to next question
         if validate_answers(netoperator):
-            print("Next...")
-        # If false should back to the previous question
-        else:
-            continue
-        # Loop to keep code running while validate false
-        while True:
-            # Variable type_device take which type of device the user will work
-            type_device = input(
-                "Which type of device?\nType number:\n< 1 > Switch\n"
-                "< 2 > Router\n")
-            # Validate type_device if the user provided a right answer if
-            # true go to next question
-            if validate_answers(type_device):
-                print("Next...")
-            # If false should back to the previous question
-            else:
-                continue
-            while True:
-                # If type_device is 1 (Switch) the next question is
-                # what's the layer
-                if type_device == '1':
-                    # Variable layer take an answer regarding the layer
-                    # of switch use
-                    layer = input(
-                        "Which layer?\nType number:\n< 1 > Layer2\n"
-                        "< 2 > Layer3\n")
-                    # Validate layer if the user provided a right answer
-                    # if true go to next question
-                    if validate_answers(layer):
-                        print("Next...")
-                    # If false should back to the previous question
-                    else:
-                        continue
-                else:
-                    # Variable route take an answer regarding the routing
-                    # of router use
-                    route = input(
-                        "Which type of route?\nType number:\n< 1 > Static\n"
-                        "< 2 > Dynamic\n")
-                    # Validate route if the user provided a right answer if
-                    #  true go to next question
-                    if validate_answers(route):
-                        print("Next...")
-                    # If false should back to the previous question
-                    else:
-                        continue
-                while True:
-                    # Variable vendor take an answer regarding the vendor
-                    # of the device
-                    vendor = input(
-                        "Which vendor?\nType number:\n< 1 > Cisco\n"
-                        "< 2 > Aruba\n< 3 > Datacom\n< 4 > HP Comware\n")
-                    # Validate vendors if the user provided a right answer if
-                    # true go to next step
-                    if validate_answers_vendors(vendor):
-                        print("Next...")
-                        break
-                    # If false should back to the previous question
-                    else:
-                        continue
-                break
+            clear_terminal()
             break
-        break
+
+    # Loop to keep code running while validate false
+    while True:
+        # Variable type_device take which type of device the user will work
+        type_device = input(
+            "Which type of device?\nType number:\n< 1 > Switch\n"
+            "< 2 > Router\n")
+        # Validate type_device if the user provided a right answer if
+        # true go to next question
+        if validate_answers(type_device):
+            clear_terminal()
+            break
+
+    # Loop to keep code running while validate false
+    while True:
+        # If type_device is 1 (Switch) the next question is
+        # what's the layer
+        if type_device == '1':
+            # Variable layer take an answer regarding the layer
+            # of switch use
+            layer = input(
+                "Which layer?\nType number:\n< 1 > Layer2\n"
+                "< 2 > Layer3\n")
+            # Validate layer if the user provided a right answer
+            # if true go to next question
+            if validate_answers(layer):
+                clear_terminal()
+                break
+        else:
+            # Variable route take an answer regarding the routing
+            # of router use
+            route = input(
+                "Which type of route?\nType number:\n< 1 > Static\n"
+                "< 2 > Dynamic\n")
+            # Validate route if the user provided a right answer if
+            #  true go to next question
+            if validate_answers(route):
+                clear_terminal()
+                break
+
+    # Loop to keep code running while validate false
+    while True:
+        # Variable vendor take an answer regarding the vendor
+        # of the device
+        vendor = input(
+            "Which vendor?\nType number:\n< 1 > Cisco\n"
+            "< 2 > Aruba\n< 3 > Datacom\n< 4 > HP Comware\n")
+        # Validate vendors if the user provided a right answer if
+        # true go to next step
+        if validate_answers_vendors(vendor):
+            clear_terminal()
+            if netoperator == '1' and type_device == '1' and layer == '2':
+                new_configuiration = config.ConfQuestionsSWL3()
+                new_configuiration.questions()
+                print(new_configuiration)
+
+            break
 
 
 def validate_answers(answer):
@@ -90,17 +89,22 @@ def validate_answers(answer):
     the data provided.
     """
     try:
-        # Convert answer to integer
-        num = int(answer)
-        # Check if received the specific numbers
-        if num != 1 and num != 2:
+        # Check if received the specific value
+        if answer != '1' and answer != '2':
             # If is not number 1 and 2 you receive a message error
             raise ValueError(
-                f'Make sure you have writing\n< 1 > or < 2 > not {answer}\n'
+                f'''
+            --------------- WARNING ---------------
+            This answer {answer} is incorrect,
+            please, be sure to type it correctly
+            < 1 > or < 2 >
+            --------------- WARNING ---------------
+            '''
             )
-    except ValueError as error:
+    except ValueError as err:
         # Check if it received a integer number if not receive a message
-        print(f"{error}is not accepted. Please try again.\n")
+        clear_terminal()
+        print(f"{err}")
         return False
     # Return true if didn't have error
     return True
@@ -112,21 +116,31 @@ def validate_answers_vendors(answer):
     validate the data provided.
     """
     try:
-        # Convert answer to integer
-        num = int(answer)
-        # Check if received the specific numbers
-        if num != 1 and num != 2 and num != 3 and num != 4:
-            # If is not number 1 and 2 you receive a message error
+        # Check if received the specific value
+        if answer != '1' and answer != '2' and answer != '3' and answer != '4':
+            # If is not number 1, 2, 3 or 4 you receive a message error
             raise ValueError(
-                f'This answer {answer} is not right\nMake sure you have '
-                'writing\n< 1 > or < 2 > or < 3 > or < 4 >\n'
+                f'''
+            --------------- WARNING ---------------
+            This answer {answer} is incorrect,
+            please, be sure to type it correctly
+            < 1 > or < 2 > or < 3 > or < 4 >
+            --------------- WARNING ---------------
+            '''
             )
-    except ValueError as error:
+
+    except ValueError as err:
         # Check if it received a integer number if not receive a message
-        print(f"{error}is not accepted. Please try again.\n")
+        clear_terminal()
+        print(f"{err}")
         return False
     # Return true if didn't have error
     return True
+
+
+# https://stackoverflow.com/questions/2084508/clear-terminal-in-python
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def main():
@@ -148,4 +162,6 @@ print("In this application you can create a basic config for some "
 print("You can create a troubleshooting file with some steps to "
       "fix a issue.\n")
 
-main()  # Call main function
+
+if __name__ == '__main__':
+    main()  # Call main function
