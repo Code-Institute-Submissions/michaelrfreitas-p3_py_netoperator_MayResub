@@ -79,7 +79,13 @@ def basic_questions():
                 new_configuiration = config.ConfQuestionsSWL3()
                 new_configuiration.questions()
                 print(new_configuiration)
-
+                create_file = input(
+                    'Do you want print config (P) or create a file config ' +
+                    '(F)? P or F: ')
+                if create_file.upper() == 'F':
+                    new_configuiration.return_full_config()
+                else:
+                    print(new_configuiration)
             break
 
 
