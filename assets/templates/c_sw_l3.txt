@@ -1,0 +1,65 @@
+
+!
+hostname ${hostname}
+!
+boot-start-marker
+boot-end-marker
+!
+logging buffered 16384
+!
+username ${username} privilege 15 password 7 ${password}
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 1-4094 priority 0
+!
+vlan ${manager_vlan}
+ name MANAGEMENT
+!
+vlan ${primary_int_vlan}
+ name PRIMARY_INT
+!
+ip ssh version 2
+lldp run
+!
+interface FastEthernet0
+ no ip address
+ no ip route-cache
+ shutdown
+!
+interface range GigabitEthernet0/1-23
+ switchport access vlan ${primary_int_vlan}
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/24
+ switchport access vlan ${manager_vlan}
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface Vlan${manager_vlan}
+ ip address ${manager_ip} ${manager_mask}
+ no ip route-cache
+!
+interface Vlan${primary_int_vlan}
+ ip address ${primary_int_ip} ${primary_int_mask}
+ no ip route-cache
+!
+ip default-gateway ${default_gateway}
+no ip http server
+no ip http secure-server
+!
+line con 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ exec-timeout 3 0
+ privilege level 15
+ logging synchronous
+ transport input ssh
+!
+end
