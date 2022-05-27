@@ -245,9 +245,10 @@ def clear_terminal():
 
 
 def download(path, file):
-    response = urllib.request.urlopen("file:///assets/configs/jnjnkde_27-May-2022_15-15.txt")
+    response = urllib.request.urlopen("file:///" + str(path))
     data = response.read()
+    print(file)
     filename = str(file)
-    file_ = open(filename, 'w')
+    file_ = open(filename, 'wb')
     file_.write(data)
     file_.close()
