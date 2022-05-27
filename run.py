@@ -81,12 +81,8 @@ def basic_questions():
                 clear_terminal()
                 print(new_configuiration)
                 create_file = input(
-                    'Do you want print config (P) or create a file config ' +
-                    '(F)? P or F: ')
-                if create_file.upper() == 'F':
-                    new_configuiration.file_full_config(vendor)
-                else:
-                    clear_terminal()
+                    'Do you want print config? YES (Y) or NO (N): ')
+                if create_file.upper() == 'Y':
                     new_configuiration.printer_full_config(vendor)
             break
 

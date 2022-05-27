@@ -2,9 +2,6 @@
 
 import os
 import re
-import shutil
-import datetime
-import urllib.request
 from pathlib import Path
 from devices import ConfSwitchL3
 
@@ -28,43 +25,6 @@ class ConfQuestionsSWL3(ConfSwitchL3):
         Default Gateway: {self.default_gateway}
         ---
         '''
-
-    def file_full_config(self, vendor):
-        date = datetime.datetime.now()
-
-        if vendor == '1':
-            base_path_temp = Path('assets/templates/c_sw_cisco_l3.txt')
-        else:
-            base_path_temp = Path('assets/templates/c_sw_datacom_l3.txt')
-
-        base_path_conf = Path('assets/configs/' +
-                              self.hostname + '_' + date.strftime('%d') + '-'
-                              + date.strftime('%b') + '-' + date.strftime('%Y')
-                              + '_' + date.strftime('%H') + '-'
-                              + date.strftime('%M') + '.txt')
-
-        shutil.copyfile(base_path_temp, base_path_conf)
-
-        reading_file = open(base_path_temp, "r", encoding='UTF-8')
-        writing_file = open(base_path_conf, 'w', encoding='UTF-8')
-
-        find_conf = ("${hostname}", "${username}", "${password}",
-                     "${manager_vlan}", "${manager_ip}", "${manager_mask}",
-                     "${primary_int_vlan}", "${primary_int_ip}",
-                     "${primary_int_mask}", "${default_gateway}")
-        repl_conf = (self.hostname, self.username, self.password,
-                     self.manager_vlan, self.manager_ip,
-                     self.manager_mask, self.primary_int_vlan,
-                     self.primary_int_ip, self.primary_int_mask,
-                     self.default_gateway)
-
-        for line in reading_file:
-            for find, repl in zip(find_conf, repl_conf):
-                line = line.replace(find, repl)
-            writing_file.write(line)
-        reading_file.close()
-        writing_file.close()
-        download(base_path_conf, base_path_conf.name)
 
     def printer_full_config(self, vendor):
         if vendor == '1':
@@ -242,13 +202,3 @@ def validate_pwd(answer):
 
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
-
-
-def download(path, file):
-    response = urllib.request.urlopen("file:///" + str(path))
-    data = response.read()
-    print(file)
-    filename = str(file)
-    file_ = open(filename, 'wb')
-    file_.write(data)
-    file_.close()
