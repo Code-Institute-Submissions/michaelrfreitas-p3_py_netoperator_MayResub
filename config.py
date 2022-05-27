@@ -4,7 +4,7 @@ import os
 import re
 import shutil
 import datetime
-import js2py
+import urllib.request
 from pathlib import Path
 from devices import ConfSwitchL3
 
@@ -64,7 +64,7 @@ class ConfQuestionsSWL3(ConfSwitchL3):
             writing_file.write(line)
         reading_file.close()
         writing_file.close()
-        download(base_path_conf)
+        download(base_path_conf, base_path_conf.name)
 
     def printer_full_config(self, vendor):
         if vendor == '1':
@@ -244,7 +244,10 @@ def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def download(path):
-    down = "$('a').attr({target: '_blank', href: " + "'" + str(path) + "'});"
-    context = js2py.EvalJs(enable_require=True)
-    return context.eval(down)
+def download(path, file):
+    response = urllib.request.urlopen("file:///assets/configs/jnjnkde_27-May-2022_15-15.txt")
+    data = response.read()
+    filename = str(file)
+    file_ = open(filename, 'w')
+    file_.write(data)
+    file_.close()
