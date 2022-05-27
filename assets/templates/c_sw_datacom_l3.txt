@@ -1,0 +1,41 @@
+!
+hostname ${hostname}
+!
+username ${username} access-level 15
+username ${username} password 7 ${password}
+!
+ip default-gateway ${default_gateway}
+no ip telnet server
+no ip http server
+no ip http secure-server
+ip ssh server
+!
+ip routing
+!
+interface vlan ${manager_vlan}
+ name MANAGEMENT
+ ip address ${manager_ip}/${manager_mask}
+ set-member untagged ethernet 1/24
+!
+interface vlan ${primary_int_vlan}
+ name LAN-NETWORK
+ ip address ${primary_int_ip}/${primary_int_mask}
+ set-member untagged ethernet range 1/1 1/23
+!
+vlan-group 1
+vlan-group 1 vlan all
+!
+interface ethernet range 1/1 1/23
+ description LAN-NETWORK
+!
+interface ethernet 1/24
+ description MANAGEMENT
+ spanning-tree edge-port
+!
+interface mgmt-eth
+ ip address 192.168.0.25/24
+!
+spanning-tree 1
+spanning-tree 1 vlan-group 1
+!
+lldp

@@ -1,9 +1,9 @@
 """
 This is the main module of run python with basic questions
 """
+import os
 import pyfiglet
 import config
-import os
 
 
 def basic_questions():
@@ -70,22 +70,24 @@ def basic_questions():
         # of the device
         vendor = input(
             "Which vendor?\nType number:\n< 1 > Cisco\n"
-            "< 2 > Aruba\n< 3 > Datacom\n< 4 > HP Comware\n")
+            "< 2 > Datacom\n")
         # Validate vendors if the user provided a right answer if
         # true go to next step
-        if validate_answers_vendors(vendor):
+        if validate_answers(vendor):
             clear_terminal()
             if netoperator == '1' and type_device == '1' and layer == '2':
                 new_configuiration = config.ConfQuestionsSWL3()
                 new_configuiration.questions()
+                clear_terminal()
                 print(new_configuiration)
                 create_file = input(
                     'Do you want print config (P) or create a file config ' +
                     '(F)? P or F: ')
                 if create_file.upper() == 'F':
-                    new_configuiration.return_full_config()
+                    new_configuiration.file_full_config(vendor)
                 else:
-                    print(new_configuiration)
+                    clear_terminal()
+                    new_configuiration.printer_full_config(vendor)
             break
 
 
@@ -107,34 +109,6 @@ def validate_answers(answer):
             --------------- WARNING ---------------
             '''
             )
-    except ValueError as err:
-        # Check if it received a integer number if not receive a message
-        clear_terminal()
-        print(f"{err}")
-        return False
-    # Return true if didn't have error
-    return True
-
-
-def validate_answers_vendors(answer):
-    """
-    Validate function to check the answers about vendor question and
-    validate the data provided.
-    """
-    try:
-        # Check if received the specific value
-        if answer != '1' and answer != '2' and answer != '3' and answer != '4':
-            # If is not number 1, 2, 3 or 4 you receive a message error
-            raise ValueError(
-                f'''
-            --------------- WARNING ---------------
-            This answer {answer} is incorrect,
-            please, be sure to type it correctly
-            < 1 > or < 2 > or < 3 > or < 4 >
-            --------------- WARNING ---------------
-            '''
-            )
-
     except ValueError as err:
         # Check if it received a integer number if not receive a message
         clear_terminal()
