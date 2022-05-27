@@ -83,6 +83,9 @@ def basic_questions():
                 create_file = input(
                     'Do you want print config? YES (Y) or NO (N): ')
                 if create_file.upper() == 'Y':
+                    print("""
+                    --------------- SEE CONFIG COPY-PASTE ---------------
+                    """)
                     new_configuiration.printer_full_config(vendor)
             break
 
