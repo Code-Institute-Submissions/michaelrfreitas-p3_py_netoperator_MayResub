@@ -1,0 +1,44 @@
+!
+hostname ${hostname}
+!
+boot-start-marker
+boot-end-marker
+!
+username ${username} privilege 15 secret 5 ${password}
+!         
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+lldp run
+!
+ip ssh version 2
+!
+interface range FastEthernet0/1-23
+ description LAN-NETWORK
+ switchport access vlan ${primary_vlan}
+ switchport mode access
+!
+interface FastEthernet0/24
+ description MANAGEMENT
+ switchport access vlan ${manager_vlan}
+ switchport mode access
+ shutdown
+!
+interface Vlan${manager_vlan}
+ ip address ${manager_ip} ${manager_mask}
+ description MANAGEMENT
+!
+ip default-gateway ${default_gateway}
+no ip http server
+no ip http secure-server
+!
+line con 0
+line vty 0 4
+ privilege level 15
+ transport input ssh
+line vty 5 15
+ privilege level 15
+ transport input ssh
+!
+end

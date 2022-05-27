@@ -1,0 +1,50 @@
+!
+hostname ${hostname}
+!
+username ${username} access-level 15
+username ${username} password 7 ${password}
+!
+ip default-gateway ${default_ip}
+no ip telnet server
+no ip http server
+no ip http secure-server
+ip ssh server
+!
+ip routing
+!
+router ospf
+ router-id 1.1.1.1
+ network 192.168.1.0/24 area 0
+ passive-interface range 1 4094
+ log-adjacency-changes
+!
+authentication login local
+!
+interface vlan 10
+ name INSIDE
+ ip address ${interface_ip_inside}/${interface_mask_inside}
+ set-member untagged ethernet range 1/1 1/22
+!
+interface vlan 20
+ name OUTSIDE
+ ip address ${interface_ip_outside}/${interface_mask_outside}
+ set-member untagged ethernet range 1/23 1/24
+!
+vlan-group 1
+vlan-group 1 vlan all
+!
+interface ethernet range 1/1 1/22
+ description INSIDE
+ spanning-tree edge-port
+!
+interface ethernet range 1/23 1/24
+ description OUTSIDE
+ spanning-tree edge-port
+!
+interface mgmt-eth
+ ip address 192.168.0.25/24
+!
+spanning-tree 1
+spanning-tree 1 vlan-group 1
+!
+lldp

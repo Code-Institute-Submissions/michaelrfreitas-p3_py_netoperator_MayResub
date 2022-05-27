@@ -1,0 +1,73 @@
+!
+hostname ${hostname}
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+username ${username} privilege 15 secret 5 ${password}
+!
+interface Loopback0
+ ip address 1.1.1.1 255.255.255.255
+!
+interface GigabitEthernet0/0
+ description INSIDE
+ ip address ${interface_ip_inside} ${interface_mask_inside}
+ ip ospf message-digest-key 1 md5 cisco@ospf
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description OUTSIDE
+ ip address ${interface_ip_outside} ${interface_mask_outside}
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ no ip address
+ shutdown
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 1.1.1.1
+ log-adjacency-changes
+ area 0 authentication message-digest
+ passive-interface default
+ no passive-interface GigabitEthernet0/0
+ network 192.168.1.0 0.0.0.255 area 0
+!
+router bgp 65000
+ no synchronization
+ bgp log-neighbor-changes
+ redistribute connected
+ redistribute ospf 1
+ neighbor 100.100.100.1 remote-as 7777
+ no auto-summary
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 ${default_ip}
+!
+line con 0
+line aux 0
+line vty 0 4
+ privilege level 15
+ login local
+ transport input telnet
+line vty 5 15
+ privilege level 15
+ login local
+ transport input telnet
+!
+end

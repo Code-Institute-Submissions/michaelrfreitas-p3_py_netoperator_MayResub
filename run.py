@@ -52,17 +52,14 @@ def basic_questions():
             if validate_answers(layer):
                 clear_terminal()
                 break
-        else:
-            # Variable route take an answer regarding the routing
-            # of router use
-            route = input(
-                "Which type of route?\nType number:\n< 1 > Static\n"
-                "< 2 > Dynamic\n")
-            # Validate route if the user provided a right answer if
-            #  true go to next question
-            if validate_answers(route):
-                clear_terminal()
-                break
+        break
+
+    if netoperator == '1' and type_device == '1' and layer == '1':
+        new_configuiration = config.ConfQuestionsSWL2()
+    if netoperator == '1' and type_device == '1' and layer == '2':
+        new_configuiration = config.ConfQuestionsSWL3()
+    if netoperator == '1' and type_device == '2':
+        new_configuiration = config.ConfQuestionsRouter()
 
     # Loop to keep code running while validate false
     while True:
@@ -75,18 +72,16 @@ def basic_questions():
         # true go to next step
         if validate_answers(vendor):
             clear_terminal()
-            if netoperator == '1' and type_device == '1' and layer == '2':
-                new_configuiration = config.ConfQuestionsSWL3()
-                new_configuiration.questions()
-                clear_terminal()
-                print(new_configuiration)
-                create_file = input(
-                    'Do you want print config? YES (Y) or NO (N): ')
-                if create_file.upper() == 'Y':
-                    print("""
-                    --------------- SEE CONFIG COPY-PASTE ---------------
-                    """)
-                    new_configuiration.printer_full_config(vendor)
+            new_configuiration.questions()
+            clear_terminal()
+            print(new_configuiration)
+            create_file = input(
+                'Do you want print config? YES (Y) or NO (N): ')
+            if create_file.upper() == 'Y':
+                print("""
+                --------------- SEE CONFIG COPY-PASTE ---------------
+                """)
+                new_configuiration.printer_full_config(vendor)
             break
 
 
@@ -117,8 +112,11 @@ def validate_answers(answer):
     return True
 
 
-# https://stackoverflow.com/questions/2084508/clear-terminal-in-python
 def clear_terminal():
+    """
+    Clear terminal with os.system
+    https://stackoverflow.com/questions/2084508/clear-terminal-in-python
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
