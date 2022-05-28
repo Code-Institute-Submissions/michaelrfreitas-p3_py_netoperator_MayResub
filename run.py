@@ -39,7 +39,8 @@ def basic_questions():
             if validate_answers(type_device):
                 clear_terminal()
                 break
-        break
+        else:
+            break
 
     # Loop to keep code running while validate false
     while True:
@@ -56,7 +57,8 @@ def basic_questions():
             if validate_answers(layer):
                 clear_terminal()
                 break
-        break
+        else:
+            break
 
     if netoperator == '1' and type_device == '1' and layer == '1':
         operator = config.ConfQuestionsSWL2()
