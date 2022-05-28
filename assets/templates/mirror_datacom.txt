@@ -1,0 +1,11 @@
+Configuring Port Monitoring DATACOM
+This example shows how to monitor a port via CLI. Port 10 is specified as 
+the destination where the mirror will be made. Port 12 is the source and tx 
+is the type of traffic to be monitored in this example.
+DmSwitch(config)#monitor destination 1/10 
+DmSwitch(config)#interface ethernet 1/12 
+DmSwitch(config-if-eth-1/12)#monitor source tx 
+or
+DmSwitch(config-if-eth-1/12)#monitor source rx
+DmSwitch(config-if-eth-1/12)#
+DmSwitch#show monitor

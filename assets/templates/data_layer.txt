@@ -1,0 +1,2 @@
+show mac-address-table 
+show vlan

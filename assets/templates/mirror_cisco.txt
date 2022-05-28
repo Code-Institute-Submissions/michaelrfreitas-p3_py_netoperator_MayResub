@@ -1,0 +1,25 @@
+Configuration Monitor CISCO
+In order to configure port Fa0/1 as a destination port, the source ports Fa0/2 and Fa0/5, 
+and the management interface (VLAN 1), select the interface Fa0/1 in the configuration mode:
+Switch(config)#interface fastethernet 0/1
+Enter the list of ports to be monitored:
+Switch(config-if)#port monitor fastethernet 0/2
+Switch(config-if)#port monitor fastethernet 0/5
+With this command, every packet that these two ports receive or transmit is also copied to 
+port Fa0/1. Issue a variation of the port monitor command in order to configure the monitoring 
+for the administrative interface:
+Switch(config-if)#port monitor vlan 1
+Note: This command does not mean that port Fa0/1 monitors the entire VLAN 1. The vlan 1 keyword 
+simply refers to the administrative interface of the switch.
+This example command illustrates that the monitor of a port in a different VLAN is impossible:
+Switch(config-if)#port monitor fastethernet 0/3
+FastEthernet0/1 and FastEthernet0/3 are in different vlan
+In order to finish the configuration, configure another session. This time, use Fa0/4 as a 
+destination SPAN port:
+Switch(config-if)#interface fastethernet 0/4
+Switch(config-if)#port monitor fastethernet 0/3
+Switch(config-if)#port monitor fastethernet 0/6
+Switch(config-if)#^Z
+Issue a show running command, or use the show port monitor command in order to check the 
+configuration:
+Switch#show port monitor

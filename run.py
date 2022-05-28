@@ -4,6 +4,7 @@ This is the main module of run python with basic questions
 import os
 import pyfiglet
 import config
+import tshoot
 
 
 def basic_questions():
@@ -27,21 +28,24 @@ def basic_questions():
 
     # Loop to keep code running while validate false
     while True:
-        # Variable type_device take which type of device the user will work
-        type_device = input(
-            "Which type of device?\nType number:\n< 1 > Switch\n"
-            "< 2 > Router\n")
-        # Validate type_device if the user provided a right answer if
-        # true go to next question
-        if validate_answers(type_device):
-            clear_terminal()
-            break
+        type_device = ''
+        if netoperator == '1':
+            # Variable type_device take which type of device the user will work
+            type_device = input(
+                "Which type of device?\nType number:\n< 1 > Switch\n"
+                "< 2 > Router\n")
+            # Validate type_device if the user provided a right answer if
+            # true go to next question
+            if validate_answers(type_device):
+                clear_terminal()
+                break
+        break
 
     # Loop to keep code running while validate false
     while True:
         # If type_device is 1 (Switch) the next question is
         # what's the layer
-        if type_device == '1':
+        if type_device == '1' and netoperator == '1':
             # Variable layer take an answer regarding the layer
             # of switch use
             layer = input(
@@ -55,11 +59,13 @@ def basic_questions():
         break
 
     if netoperator == '1' and type_device == '1' and layer == '1':
-        new_configuiration = config.ConfQuestionsSWL2()
+        operator = config.ConfQuestionsSWL2()
     if netoperator == '1' and type_device == '1' and layer == '2':
-        new_configuiration = config.ConfQuestionsSWL3()
+        operator = config.ConfQuestionsSWL3()
     if netoperator == '1' and type_device == '2':
-        new_configuiration = config.ConfQuestionsRouter()
+        operator = config.ConfQuestionsRouter()
+    if netoperator == '2':
+        operator = tshoot.TroubQuestions()
 
     # Loop to keep code running while validate false
     while True:
@@ -72,16 +78,16 @@ def basic_questions():
         # true go to next step
         if validate_answers(vendor):
             clear_terminal()
-            new_configuiration.questions()
+            operator.questions()
             clear_terminal()
-            print(new_configuiration)
+            print(operator)
             create_file = input(
                 'Do you want print config? YES (Y) or NO (N): ')
             if create_file.upper() == 'Y':
                 print("""
                 --------------- SEE CONFIG COPY-PASTE ---------------
                 """)
-                new_configuiration.printer_full_config(vendor)
+                operator.printer_full(vendor)
             break
 
 

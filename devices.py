@@ -60,14 +60,8 @@ class TshootDevices:
     """
 
     def __init__(self):
-        self.ping_destination = ''
+        self.ping_dest = ''
         self.status_vlan = ''
-        self.check_mask = ''
-        self.check_ip = ''
-        self.status_interface = ''
-        self.destiation_ip = ''
-        self.check_mac_table = ''
-        self.check_arp_table = ''
-        self.status_routing_table = ''
-        self.protocol_status = ''
+        self.routing_tab = ''
+        self.proto_stat = ''
         self.mirror_config = ''

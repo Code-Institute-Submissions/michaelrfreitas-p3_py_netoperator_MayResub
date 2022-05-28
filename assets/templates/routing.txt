@@ -1,0 +1,8 @@
+show ip ospf 
+show ip ospf neighbors
+show ip route 
+show ip route summary 
+show ip bgp 
+show ip bgp neighbors
+show ip routing
+show ip default-gateway

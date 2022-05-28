@@ -25,7 +25,7 @@ class ConfQuestionsSWL2(ConfSwitchL2):
         ---
         '''
 
-    def printer_full_config(self, vendor):
+    def printer_full(self, vendor):
         """
         Function to printer in screen full config for Switch L2
         """
@@ -114,7 +114,7 @@ class ConfQuestionsSWL3(ConfSwitchL3):
         ---
         '''
 
-    def printer_full_config(self, vendor):
+    def printer_full(self, vendor):
         """
         Function to printer in screen full config for Switch L3
         """
@@ -215,7 +215,7 @@ class ConfQuestionsRouter(ConfRouter):
         ---
         '''
 
-    def printer_full_config(self, vendor):
+    def printer_full(self, vendor):
         """
         Function to printer in screen full config for Router
         """

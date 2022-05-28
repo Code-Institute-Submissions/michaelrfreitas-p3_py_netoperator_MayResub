@@ -1,0 +1,2 @@
+ping x.x.x.x
+traceroute x.x.x.x 
